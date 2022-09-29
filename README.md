@@ -1,6 +1,6 @@
 # Random Real Name Cli Go
 
-A Go web-service API for generating random user names (gender-aware), An online and secure web service to create unique random usernames lists.
+A Go CLI program for generating random user names (gender-aware), A program to create unique random usernames lists.
 
 ## Assignment
 
