@@ -60,16 +60,6 @@ func GenerateName(nameList []string) string {
 	return name
 }
 
-func GenderFromText(gender string) Gender {
-	switch gender {
-	case "male":
-		return Male
-	case "female":
-		return Female
-	}
-	return Both
-}
-
 func GenerateRandomNumber() string {
 	if !GenerateRandomBool() {
 		return ""
