@@ -27,54 +27,23 @@ When a request asks us to generate 1000 UNIQUE names. we need to make sure we ar
 
 In the process, Maybe we generate 2000 names and after filtering the final result was 1000 UNIQUE names. So when we find a `limit` number of unique names. it ends and we send the output to that request.
 
-### Routes
+### Test
 
-- `GET /`
+`$ random_realname -limit 10 -gender both`
 
-A route that will show this document and everyone can study more about the project as well as this README.markdown.
-
-- `GET /get`
-
-**Parameters:**
-
-- The default value of `limit` is 1 but you are able to change limit to any number of emails you need. like 100.
-
-- The default value of `gender` is `"both"`, But if you want to get random names for Male or Female you need to set it to `male` or `female`.
-
-This route not going to generate an email for you. this only generates random and UNIQUE names.
-
-**Output:**
-
-```json
-{
-   "status": 1,
-   "name": "alireza2000"
-}
 ```
-
-Or maybe as following if you are asking for more than one name:
-
-```json
-{
-   "status": 1,
-   "names": [
-    "alireza2004",
-    "hamid.h3000",
-    "max.base1"
-   ]
-}
+List of 10 name(s):
+ - fredericka_rosebrook115
+ - belvalivasy
+ - latesha.stedman
+ - nohemileuthauser
+ - jo_dirago46
+ - donovanpinkenburg
+ - carlosdurough546
+ - luana_drohan
+ - mauritacontratto
+ - jeri_fire
 ```
-
-Or if something went wrong:
-
-```json
-{
-   "status": 0,
-   "message": "Oops, sorry. Something does not go as we expected."
-}
-```
-
-**Note:** Obviously, the HTTP Code is expected to be 200 if the request is answered successfully. Otherwise, you can use the appropriate code according to the error.
 
 ## What do you need to search for?
 
