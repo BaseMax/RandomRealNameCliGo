@@ -97,23 +97,12 @@ func ReadFromResource(fileName string) []string {
 }
 
 func main() {
-	// cli check parameters
-	// limit is optional and should be a positive int, default value is 1
-	// gender is optional and should be a string. default value is `both`. but it's valid to be `male` or `female`
-
 	var want_limit = 1
 	var want_gender = Both
 
-	// if argv is empty, so show a help message
-	// get arguments
 	if len(os.Args) <= 1 {
-		// show help message
 		fmt.Printf("%s -limit n -gender both", os.Args[0])
 	} else {
-		// handling -limit n
-		// handling -gender male|female|both
-
-		// loop i from 0 to len(os.Args)
 		var count = len(os.Args)
 		var isValid = true
 		for i := 1; i < count; i++ {
@@ -167,30 +156,3 @@ func main() {
 		}
 	}
 }
-
-// limitParam, ok := req.URL.Query()["limit"]
-
-// if !ok || len(limitParam) < 1 {
-// 	limitParam = append(limitParam, "1")
-// }
-// limit, err := strconv.Atoi(limitParam[0])
-// if err != nil {
-// 	json.NewEncoder(w).Encode(map[string]interface{}{
-// 		"status":  0,
-// 		"message": "Oops, sorry. Something does not go as we expected.",
-// 	})
-// 	return
-// }
-
-// genderParam, ok := req.URL.Query()["gender"]
-// if !ok || len(genderParam) < 1 {
-// 	genderParam = append(genderParam, "both")
-// }
-// gender := genderParam[0]
-
-// w.Header().Add("Content-Type", "application/json")
-// res := map[string]any{
-// 	"status": 1,
-// 	"names":  GenerateRandomNames(limit, gender),
-// }
-// json.NewEncoder(w).Encode(&res)
