@@ -96,7 +96,7 @@ Note, I have never applied for a job anywhere until now and this assignment proj
 
 ## Authors
 
-- Amir
+- itsjoniur
 - Max Base
 
 Anyone is welcome to contribute, change or develop this project. Thanks in advance, Any comments are appreciated.
