@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"math/rand"
 	"os"
@@ -15,11 +16,10 @@ var (
 	MaleName   []string = ReadFromResource("../male-first-names.txt")
 	FemaleName []string = ReadFromResource("../female-first-names.txt")
 	FamilyName []string = ReadFromResource("../last-names.txt")
+	MiddleChar []string = []string{".", "_"}
 )
 
-var MiddleChar []string = []string{".", "_"}
-
-type Gender int
+type Gender uint8
 
 const (
 	Male Gender = iota
@@ -40,7 +40,6 @@ func GenerateRandomNames(limit int, gender Gender) []string {
 
 	var result []string
 
-	rand.Seed(time.Now().Unix())
 	for len(result) < limit {
 		newName := GenerateName(nameList)
 		if slices.Contains(result, newName) {
@@ -87,62 +86,33 @@ func ReadFromResource(fileName string) []string {
 }
 
 func main() {
-	var want_limit = 1
-	var want_gender = Both
+	rand.Seed(time.Now().Unix())
+	var (
+		limit  int
+		gender Gender
+	)
 
-	if len(os.Args) <= 1 {
-		fmt.Printf("%s -limit n -gender both", os.Args[0])
-	} else {
-		var count = len(os.Args)
-		var isValid = true
-		for i := 1; i < count; i++ {
-			if os.Args[i] == "-limit" {
-				if i+1 <= count {
-					val, err := strconv.Atoi(os.Args[i+1])
-					if err != nil {
-						panic(err)
-					}
-					want_limit = val
-				} else {
-					isValid = false
-					fmt.Printf("Error: limit value missed!")
-					break
-				}
-				i++
-			} else if os.Args[i] == "-gender" {
-				if i+1 <= count {
-					val := strings.ToLower(os.Args[i+1])
-					if val == "male" {
-						want_gender = Male
-					} else if val == "female" {
-						want_gender = Female
-					} else if val == "both" {
-						want_gender = Both
-					} else {
-						isValid = false
-						fmt.Printf("Error: %s mode is not supported as gender value!", os.Args[i+1])
-						break
-					}
-					i++
-				} else {
-					isValid = false
-					fmt.Printf("Error: gender value missed!")
-					break
-				}
-			} else {
-				isValid = false
-				fmt.Printf("Error: %s not supporting as an argument!", os.Args[i])
-				break
-			}
+	flag.IntVar(&limit, "limit", 1, "limit of generated names")
+	flag.Func("gender", "gender of names", func(s string) error {
+		switch strings.ToLower(s) {
+		case "male":
+			gender = Male
+		case "female":
+			gender = Female
+		case "both":
+			gender = Both
+		default:
+			gender = Both
 		}
 
-		if isValid {
-			names := GenerateRandomNames(want_limit, want_gender)
+		return nil
+	})
+	flag.Parse()
 
-			fmt.Printf("List of %d name(s):\n", want_limit)
-			for _, name := range names {
-				fmt.Printf(" - %s\n", name)
-			}
-		}
+	names := GenerateRandomNames(limit, gender)
+
+	fmt.Printf("List of %d name(s):\n", limit)
+	for _, name := range names {
+		fmt.Printf(" - %s\n", name)
 	}
 }
